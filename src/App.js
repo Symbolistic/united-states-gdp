@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 //import { select } from 'd3'
 import * as d3 from "d3";
 //import moment from 'moment'
 import './App.css';
 
+
 function App() {
-  const [data, setData] = useState([])
   const svgRef = useRef();
 
   useEffect (() => {
@@ -13,14 +13,25 @@ function App() {
       .then(response => response.json())
       .then(
         (result) => {
-          setData(result.data)
+          renderD3(result.data, svgRef)
         }
       )
   }, []);
 
-  
-  //const date = moment(data[12]).format('MM-DD-YYYY')
+  return (
+    <div>
+      <h1 id="title">United States GDP</h1>
+      <svg ref={svgRef}>
+      </svg>
+    </div>
+  );
+}
+
+const renderD3 = (data, svg) => {
+
   if (data.length > 1){
+    // This is just to make sure ASync doesn't act stupid and runs this multiple times, only ONCE
+
     // Set the main SVG area values
     let margin = { top: 20, right: 20, bottom: 50, left: 60 };
     let height = 500 - margin.top - margin.bottom;
@@ -49,9 +60,10 @@ function App() {
     // Yo yo yoooooo ITS TIME TO USE D3 BOIIIIIIII..... I'm not excited either.
     console.log("LOADED")
     // This is the ENTIRE CHART
-    let chart = d3.select(svgRef.current)
+    let chart = d3.select(svg.current)
                     .attr('width', width + margin.right + margin.left)
                     .attr('height', height + margin.top + margin.bottom);
+
 
 
     /* This is the CONTAINED AREA that will hold the CHART DATA, 
@@ -64,37 +76,45 @@ function App() {
 
     // Append the X Axis
     main.append('g')
-        .attr('class', 'main axis date')
+        .attr('id', 'x-axis')
         .attr("transform", `translate(0, ${height})`)
         .call(xAxis);
 
     // Append the Y Axis
     main.append('g')
-        .attr('class', 'main axis date')
+        .attr('id', 'y-axis')
         .call(yAxis);
         
     // DAMN! LOOK AT THOSE BARS!
     main
-      .selectAll(".bar")
-      .data(data)
-      .join("rect")
-      .attr("class", "bar")
+      .selectAll(".bar") // What bars?
+      .data(data)        // DEEZ BARS
+      .join("rect")     
+      .attr("class", "bar") // HAH! GOTTEEMMMMMM!!
+      .attr("data-date", value => value[0])
+      .attr("data-gdp", value => value[1])
       .attr("width", 1)
-      .attr("height", value => height - yScale(value[1]))
+      .attr("height", value => height - yScale((value[1])))
       .attr('x', value => xScale(new Date(value[0])))
       .attr('y', value => yScale(value[1]))
       .attr("fill", "blue")
+      .on("mouseenter", value => {
+        main
+          .selectAll(".tooltip")
+          .data([value])
+          .join("text")
+          .attr('x', xScale(new Date(value[0])))
+          .attr('y', yScale(5000))
+          .attr("class", "tooltip")
+          .attr("id", "tooltip")
+          .attr("data-date", value => value[0])
+          .text(value[0])
+          .attr("text-anchor", "middle")
+          // .transition()
+          // .attr("opacity", 1)
+      })
+      .on("mouseleave", () => { main.select(".tooltip").remove() })
   }
-
-      
-
-
-  return (
-    <div>
-      <svg ref={svgRef}>
-      </svg>
-    </div>
-  );
 }
 
 export default App;
