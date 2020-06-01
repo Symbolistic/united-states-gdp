@@ -52,7 +52,7 @@ const renderD3 = (data, svg) => {
     let maxGDP = d3.max(data, d => d[1]);
 
     let yScale = d3.scaleLinear()
-              .domain([minGDP, maxGDP])
+              .domain([0, maxGDP])
               .range([height, 0]);
 
     let yAxis = d3.axisLeft(yScale)
@@ -93,18 +93,18 @@ const renderD3 = (data, svg) => {
       .attr("class", "bar") // HAH! GOTTEEMMMMMM!!
       .attr("data-date", value => value[0])
       .attr("data-gdp", value => value[1])
-      .attr("width", 1)
-      .attr("height", value => height - yScale((value[1])))
+      .attr("width", width/274)
+      .attr("height", value => height - yScale(value[1]))
       .attr('x', value => xScale(new Date(value[0])))
       .attr('y', value => yScale(value[1]))
-      .attr("fill", "blue")
+      .attr("fill", "lightsalmon")
       .on("mouseenter", value => {
         main
           .selectAll(".tooltip")
           .data([value])
           .join("text")
-          .attr('x', xScale(new Date(value[0])))
-          .attr('y', yScale(5000))
+          .attr('x', xScale(new Date(value[0])) - 20)
+          .attr('y', yScale(7000))
           .attr("class", "tooltip")
           .attr("id", "tooltip")
           .attr("data-date", value => value[0])
