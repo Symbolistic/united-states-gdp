@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/united-states-gdp/static/css/main.8b9d8f9e.chunk.css",
+    "main.js": "/united-states-gdp/static/js/main.24c46148.chunk.js",
+    "main.js.map": "/united-states-gdp/static/js/main.24c46148.chunk.js.map",
+    "runtime-main.js": "/united-states-gdp/static/js/runtime-main.a4d61b19.js",
+    "runtime-main.js.map": "/united-states-gdp/static/js/runtime-main.a4d61b19.js.map",
+    "static/js/2.5a3e21d4.chunk.js": "/united-states-gdp/static/js/2.5a3e21d4.chunk.js",
+    "static/js/2.5a3e21d4.chunk.js.map": "/united-states-gdp/static/js/2.5a3e21d4.chunk.js.map",
+    "index.html": "/united-states-gdp/index.html",
+    "precache-manifest.3d32fd476f1c2eaa5f63f13afb5b63e7.js": "/united-states-gdp/precache-manifest.3d32fd476f1c2eaa5f63f13afb5b63e7.js",
+    "service-worker.js": "/united-states-gdp/service-worker.js",
+    "static/css/main.8b9d8f9e.chunk.css.map": "/united-states-gdp/static/css/main.8b9d8f9e.chunk.css.map",
+    "static/js/2.5a3e21d4.chunk.js.LICENSE.txt": "/united-states-gdp/static/js/2.5a3e21d4.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a4d61b19.js",
+    "static/js/2.5a3e21d4.chunk.js",
+    "static/css/main.8b9d8f9e.chunk.css",
+    "static/js/main.24c46148.chunk.js"
+  ]
+}
